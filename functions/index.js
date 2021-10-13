@@ -51,7 +51,6 @@ app.post('/api/usuario', (req, res) => {
 app.get('/api/usuario/:usuario', (req, res) => {
   (async () => {
     try {
-      console.log(req.params)
       const usuario = await traerUsuario(req.params.usuario)
       if (usuario) return res.status(200).send(usuario)
       else return res.status(400).send('El usuario no existe')
