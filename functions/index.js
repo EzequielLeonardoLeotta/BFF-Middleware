@@ -12,17 +12,35 @@ admin.initializeApp({
 })
 const db = admin.firestore()
 
+//#region Funciones
+const traerUsuario = async (nombreUsuario) => {
+  let usuario
+  await db
+    .collection('usuarios')
+    .where('usuario', '==', nombreUsuario)
+    .get()
+    .then((querySnapshot) =>
+      querySnapshot.forEach((doc) => (usuario = doc.data())),
+    )
+  return usuario
+}
+//#endregion
+
 // POST: usuario(nombre: string, apellido: string, usuario: string, contraseña: string, dni: number) => void
 app.post('/api/usuario', (req, res) => {
   (async () => {
     try {
-      await db.collection('usuarios').doc().set({
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        usuario: req.body.usuario,
-        dni: req.body.dni,
-      })
-      return res.status(200).send()
+      const usuarioReq = req.body.usuario
+      const usuario = await traerUsuario(usuarioReq)
+      if (!usuario) {
+        await db.collection('usuarios').doc().set({
+          nombre: req.body.nombre,
+          apellido: req.body.apellido,
+          usuario: usuarioReq,
+          dni: req.body.dni,
+        })
+        return res.status(200).send()
+      } else return res.status(400).send('El usuario ya existe')
     } catch (error) {
       return res.status(500).send(error)
     }
@@ -30,19 +48,13 @@ app.post('/api/usuario', (req, res) => {
 })
 
 // GET: usuario(usuario: string, contraseña: string) => Usuario
-app.get('/api/usuario', (req, res) => {
+app.get('/api/usuario/:usuario', (req, res) => {
   (async () => {
     try {
-      let response = []
-      await db.collection('usuarios')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const data = doc.data()
-            response.push(data)
-          })
-        })
-      return res.status(200).send(response)
+      console.log(req.params)
+      const usuario = await traerUsuario(req.params.usuario)
+      if (usuario) return res.status(200).send(usuario)
+      else return res.status(400).send('El usuario no existe')
     } catch (error) {
       return res.status(500).send(error)
     }
