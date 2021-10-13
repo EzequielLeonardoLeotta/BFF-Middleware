@@ -60,6 +60,39 @@ app.get('/api/usuario/:usuario', (req, res) => {
   })()
 })
 
-// PUT: usuario(nombre: string, apellido: string, usuario: string, contraseña: string, dni: number, domicilios[{calle: string, altura: number, codigoPostal: stringl}], teléfono: number, tarjetas[{tipo: string, numero: number}], cuentas[{numeroDeCuenta: number}], saldo: number) => void
+// PUT: usuario(nombre: string, apellido: string, usuario: string, contraseña: string, dni: number, domicilios[{calle: string, altura: number, codigoPostal: stringl}], telefono: number, tarjetas[{tipo: string, numero: number}], cuentas[{numeroDeCuenta: number}], saldo: number) => void
+app.put('/api/usuario', (req, res) => {
+  (async () => {
+    try {
+      const usuarioReq = req.body.usuario
+
+      let usuarioId
+      await db
+        .collection('usuarios')
+        .where('usuario', '==', usuarioReq)
+        .get()
+        .then((querySnapshot) =>
+          querySnapshot.forEach((doc) => (usuarioId = doc.id)),
+        )
+
+      if (usuarioId) {
+        await db.collection('usuarios').doc(usuarioId).update({
+          nombre: req.body.nombre,
+          apellido: req.body.apellido,
+          usuario: usuarioReq,
+          dni: req.body.dni,
+          domicilios: req.body.domicilios,
+          telefono: req.body.telefono,
+          tarjetas: req.body.tarjetas,
+          cuentas: req.body.cuentas,
+          saldo: req.body.saldo,
+        })
+        return res.status(200).send()
+      } else return res.status(400).send('El usuario no existe')
+    } catch (error) {
+      return res.status(500).send(error)
+    }
+  })()
+})
 
 exports.app = functions.https.onRequest(app)
