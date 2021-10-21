@@ -1,8 +1,0 @@
-{
-    "emulators": {
-      "functions": {
-        "host": "localhost",
-        "port": "8080"
-      }
-    }
-  }
