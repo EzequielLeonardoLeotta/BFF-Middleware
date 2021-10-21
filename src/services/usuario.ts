@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { dirname } from 'path/posix'
 import Usuario from '../models/usuario'
 
 const findOneUsuario = async (usuario: string) =>
