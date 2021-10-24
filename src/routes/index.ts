@@ -72,6 +72,7 @@ const router = express.Router()
  */
 //#endregion
 
+//#region Swagger findOneUsuario
 /**
  * @swagger
  * /api/v1/usuario/{usuario}:
@@ -87,7 +88,7 @@ const router = express.Router()
  *        description: Nombre de usuario
  *    responses:
  *      200:
- *        description: Operacion exitosa
+ *        description: Usuario obtenido
  *        content:
  *           application/json:
  *             schema:
@@ -95,7 +96,31 @@ const router = express.Router()
  *      400:
  *        description: El usuario no existe
  */
+//#endregion
 router.get('/api/v1/usuario/:usuario', findOneUsuario)
+
+//#region Swagger saveUsuario
+/**
+ * @swagger
+ * /api/v1/usuario:
+ *   post:
+ *     summary: Registra un usuario nuevo
+ *     tags: [Usuario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Usuario'
+ *     responses:
+ *       200:
+ *         description: El usuario se creo correctamente
+ *       400:
+ *         description: El usuario ya existe
+ *       500:
+ *         description: No se pudo guardar el usuario
+ */
+//#endregion
 router.post('/api/v1/usuario', saveUsuario)
 router.put('/api/v1/usuario', updateUsuario)
 
