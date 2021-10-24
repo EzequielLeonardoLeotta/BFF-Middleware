@@ -122,6 +122,29 @@ router.get('/api/v1/usuario/:usuario', findOneUsuario)
  */
 //#endregion
 router.post('/api/v1/usuario', saveUsuario)
+
+//#region Swagger updateUsuario
+/**
+ * @swagger
+ * /api/v1/usuario:
+ *   put:
+ *     summary: Actualiza un usuario
+ *     tags: [Usuario]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Usuario'
+ *     responses:
+ *       200:
+ *         description: El usuario se actualizo correctamente
+ *       404:
+ *         description: El usuario no existe
+ *       500:
+ *         description: No se pudo actualizar el usuario
+ */
+//#endregion
 router.put('/api/v1/usuario', updateUsuario)
 
 router.get('/health', healthController.healthCheck)

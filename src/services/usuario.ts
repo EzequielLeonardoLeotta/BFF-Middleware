@@ -46,7 +46,7 @@ export const updateUsuarioService = async (req: Request, res: Response) => {
       }
 
       await Usuario.findOneAndUpdate(filter, update)
-      res.send('Usuario actualizado correctamente')
+      res.status(200).send('Usuario actualizado correctamente')
     } else res.status(404).send('Error: El usuario no existe')
   } catch (error) {
     res.status(500).send('Error: No se pudo actualizar el usuario')
