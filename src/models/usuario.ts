@@ -15,7 +15,7 @@ export interface IUsuario extends Document {
 export const UsuarioSchema = new Schema({
   nombre: String,
   apellido: String,
-  usuario: String,
+  usuario: { type: String, unique: true},
   dni: Number,
   domicilios: [String],
   telefono: Number,
