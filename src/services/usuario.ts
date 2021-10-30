@@ -20,7 +20,7 @@ export const saveUsuarioService = async (req: Request, res: Response) => {
     if (!usuarioWanted) {
       const usuario = new Usuario(req.body)
       await usuario.save()
-      res.status(200).send('Error: Usuario guardado correctamente')
+      res.status(200).send('Usuario guardado correctamente')
     } else return res.status(400).send('El usuario ya existe')
   } catch (error) {
     res.status(500).send('Error: No se pudo guardar el usuario')
