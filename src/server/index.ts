@@ -1,5 +1,6 @@
 import express from 'express';
 import routes from '../routes/index';
+import routesCompras from '../routes/compras';
 import cors from 'cors';
 import { dbConnection }  from '../database/config';
 
@@ -18,6 +19,7 @@ server.use(express.json());
 server.get('/', (_, res) => res.send('bff-middleware is up!'));
 server.use(cors());
 server.use('', routes);
+server.use('/', routesCompras);
 server.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 export default server;
