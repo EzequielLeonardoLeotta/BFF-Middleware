@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 import Usuario from '../models/usuario'
 
-const findOneUsuario = async (usuario: string) =>
-  await Usuario.findOne({ usuario: usuario }).exec()
+const findOneUsuario = async (email: string) =>
+  await Usuario.findOne({ email: email }).exec()
 
-// GET: usuario(usuario: string, contraseña: string) => Usuario
+// GET: usuario(email: string) => Usuario
 export const findOneUsuarioService = async (req: Request, res: Response) => {
-  const usuarioWanted = await findOneUsuario(req.params.usuario)
+  const usuarioWanted = await findOneUsuario(req.params.email)
 
   if (usuarioWanted) return res.status(200).send(usuarioWanted)
   else return res.status(400).send('Error: El usuario no existe')

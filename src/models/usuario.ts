@@ -9,7 +9,8 @@ export interface IUsuario extends Document {
   telefono: Number,
   tarjetas: [String],
   cuentas: [Number],
-  saldo: Number
+  saldo: Number,
+  email: String
 };
 
 export const UsuarioSchema = new Schema({
@@ -21,7 +22,8 @@ export const UsuarioSchema = new Schema({
   telefono: Number,
   tarjetas: [String],
   cuentas: [Number],
-  saldo: Number
+  saldo: Number,
+  email: String
 })
 
 

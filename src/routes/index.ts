@@ -60,6 +60,9 @@ const router = express.Router()
  *         saldo:
  *           type: number
  *           description: Saldo de la billetera virtual
+ *         email:
+ *           type: string
+ *           description: Email del usuario
  *       example:
  *        nombre: Marcos
  *        apellido: Galperion
@@ -69,23 +72,24 @@ const router = express.Router()
  *        tarjetas: [4000356478956241, 4000125478963564]
  *        cuentas: [800333547896, 65587422145]
  *        saldo: 2000
+ *        email: ma_galperion@outlook.com
  */
 //#endregion
 
 //#region Swagger findOneUsuario
 /**
  * @swagger
- * /api/v1/usuario/{usuario}:
+ * /api/v1/usuario/{email}:
  *  get:
  *    summary: Trae un usuario filtrando por su nombre de usuario.
  *    tags: [Usuario]
  *    parameters:
  *      - in: path
- *        name: usuario
+ *        name: email
  *        schema:
  *          type: string
  *        required: true
- *        description: Nombre de usuario
+ *        description: Email del usuario
  *    responses:
  *      200:
  *        description: Usuario obtenido
@@ -97,7 +101,7 @@ const router = express.Router()
  *        description: El usuario no existe
  */
 //#endregion
-router.get('/api/v1/usuario/:usuario', findOneUsuario)
+router.get('/api/v1/usuario/:email', findOneUsuario)
 
 //#region Swagger saveUsuario
 /**
